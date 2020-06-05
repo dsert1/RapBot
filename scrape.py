@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup as soup
 import certifi
 import requests
 import prettyprinter
+import json
 
 
 def get_words():
@@ -75,13 +76,19 @@ def rhyme_words():
     '''
     returns a dictionary - word: {rhyming_words}
     '''
-    return {word: create_rhyme_set(word) for word in text_file_to_set() if create_rhyme_set(word)}
+    return {word: list(create_rhyme_set(word)) for word in text_file_to_set() if create_rhyme_set(word)}
 
 
+def convert_dict_to_JSON(my_dict):
+    '''takes in a dictionary, outputs a JSON string'''
+    print(json.dumps(my_dict))
 
 if __name__ == '__main__':
     # write_to_file('work')
     # print(get_words())
 
     # write_all_to_file(get_words())
-    print(rhyme_words())
+    words_dict = rhyme_words()
+    # print(words_dict)
+
+    convert_dict_to_JSON(words_dict)
